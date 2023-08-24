@@ -9,3 +9,6 @@ export const deleteTodosResponse = createAction(TodosTypes.DELETE_TODOS_RESPONSE
 
 export const addTodos = createAction(TodosTypes.ADD_TODOS);
 export const addTodosResponse = createAction(TodosTypes.ADD_TODOS_RESPONSE);
+
+export const updateTodos = createAction(TodosTypes.UPDATE_TODOS);
+export const updateTodosResponse = createAction(TodosTypes.UPDATE_TODOS_RESPONSE);

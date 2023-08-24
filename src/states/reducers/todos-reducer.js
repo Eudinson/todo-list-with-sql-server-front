@@ -5,6 +5,7 @@ const initialState = {
     todosList: [],
     deleteTodosResponse: '',
     addTodosResponse: '',
+    updateTodosResponse: '',
 }
 
 const todosReducer = createReducer(initialState, (builder) => {
@@ -17,6 +18,9 @@ const todosReducer = createReducer(initialState, (builder) => {
     })
     .addCase(TodosTypes.ADD_TODOS_RESPONSE, (state, action) => {
         state.addTodosResponse = action.payload
+    })
+    .addCase(TodosTypes.UPDATE_TODOS_RESPONSE, (state, action) => {
+        state.updateTodosResponse = action.payload
     })
 })
 

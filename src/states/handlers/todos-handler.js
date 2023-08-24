@@ -2,12 +2,14 @@ import { call, put } from 'redux-saga/effects';
 import {
     requestGetTodos,
     requestDeleteTodos,
-    requestAddTodos
+    requestAddTodos,
+    requestUpdateTodos
 } from '../requests/todos-request';
 import {
     getTodosListResponse,
     deleteTodosResponse,
-    addTodosResponse
+    addTodosResponse,
+    updateTodosResponse
 } from '../actions/todos-action';
 
 export function* handleGetTodos() {
@@ -36,5 +38,15 @@ export function* handleAddTodos(param) {
         yield put(addTodosResponse(response))
     } catch (error) {
         yield put(addTodosResponse(error.message))
+    }
+}
+
+export function* handleupdateTodos(param) {
+    try {
+        const requestParam = param.payload 
+        const response = yield call(requestUpdateTodos, requestParam)
+        yield put(updateTodosResponse(response))
+    } catch (error) {
+        yield put(updateTodosResponse(error.message))
     }
 }

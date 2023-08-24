@@ -19,20 +19,22 @@ import {
 } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { deleteTodos } from "../states/actions/todos-action";
-import { getTodosList } from "../states/actions/todos-action";
+import {
+    getTodosList,
+    deleteTodos,
+    updateTodos
+} from "../states/actions/todos-action";
 
 const TodoListTable = () => {
 
     const dispatch = useDispatch()
     const todosList = useSelector(state => state.todos.todosList)
     const deleteTodosResponse = useSelector(state => state.todos.deleteTodosResponse)
+    const updateTodosResponse = useSelector(state => state.todos.updateTodosResponse)
 
     useEffect(() => {
-        if (deleteTodosResponse.status === 200) {
-            dispatch(getTodosList())
-        }
-    }, [deleteTodosResponse])
+        dispatch(getTodosList())
+    }, [deleteTodosResponse, updateTodosResponse])
 
     const [todoId, setTodoId] = useState(null);
     const [editValue, setEditValue] = useState('')
@@ -43,12 +45,18 @@ const TodoListTable = () => {
 
     const handleEdit = (id) => {
         setTodoId(id)
-        const editInputValue = todosList.filter(data => data.id === id).map(data => data.todo)
+        const editInputValue = todosList.filter(data => data.id === id).map(data => data.todo)[0]
         setEditValue(editInputValue)
     }
 
     const handleUpdate = (id) => {
-        todosList.filter(data => data.id === id).map(data => data.todo = editValue)
+
+        const editedValue = {
+            id: id,
+            todo: editValue
+        }
+
+        dispatch(updateTodos(editedValue))
         setTodoId(null)
     }
 

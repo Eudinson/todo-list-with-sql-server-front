@@ -24,3 +24,11 @@ export const requestAddTodos = (param) => {
         data: param
     })
 }
+
+export const requestUpdateTodos = (param) => {
+    return axios.request({
+        method: 'PUT',
+        url: urls.updateTodos,
+        data: param
+    })
+}
