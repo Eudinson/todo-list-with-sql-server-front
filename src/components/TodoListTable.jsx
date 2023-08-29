@@ -19,11 +19,7 @@ import {
 } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {
-    getTodosList,
-    deleteTodos,
-    updateTodos
-} from "../states/actions/todos-action";
+import TodosActions from "../states/actions/todos-action";
 
 const TodoListTable = () => {
 
@@ -33,14 +29,14 @@ const TodoListTable = () => {
     const updateTodosResponse = useSelector(state => state.todos.updateTodosResponse)
 
     useEffect(() => {
-        dispatch(getTodosList())
+        dispatch(TodosActions.getTodos())
     }, [deleteTodosResponse, updateTodosResponse])
 
     const [todoId, setTodoId] = useState(null);
     const [editValue, setEditValue] = useState('')
 
     const handleDelete = (id) => {
-        dispatch(deleteTodos(id))
+        dispatch(TodosActions.deleteTodos(id))
     }
 
     const handleEdit = (id) => {
@@ -50,13 +46,11 @@ const TodoListTable = () => {
     }
 
     const handleUpdate = (id) => {
-
         const editedValue = {
             id: id,
             todo: editValue
         }
-
-        dispatch(updateTodos(editedValue))
+        dispatch(TodosActions.updateTodos(editedValue))
         setTodoId(null)
     }
 

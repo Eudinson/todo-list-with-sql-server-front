@@ -2,9 +2,8 @@ import { TextField, Button } from "@mui/material";
 import { useState, useEffect } from "react";
 import '../styles/todoForm.css';
 
-import { getTodosList } from "../states/actions/todos-action";
 import { useDispatch, useSelector } from "react-redux";
-import { addTodos } from "../states/actions/todos-action";
+import TodosActions from "../states/actions/todos-action";
 
 const TodoForm = () => {
 
@@ -13,23 +12,17 @@ const TodoForm = () => {
     const addTodosResponse = useSelector(state => state.todos.addTodosResponse)
 
     useEffect(() => {
-        let isMounted = true;
-    
-        dispatch(getTodosList());
-    
-        return () => {
-          isMounted = false;
-        }
-      }, [addTodosResponse])
+        dispatch(TodosActions.getTodos());
+    }, [addTodosResponse])
 
     const handleChange = (e) => {
-        const  { value } = e.target;
+        const { value } = e.target;
         setInputTodo(value)
     }
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        dispatch(addTodos(inputTodo))
+        dispatch(TodosActions.addTodos(inputTodo))
         setInputTodo('')
     }
 

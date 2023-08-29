@@ -1,14 +1,21 @@
 import TodosTypes from "../types/todos-types";
 import { createAction } from "@reduxjs/toolkit";
 
-export const getTodosList = createAction(TodosTypes.GET_TODO_LIST);
-export const getTodosListResponse = createAction(TodosTypes.GET_TODO_LIST_RESPONSE);
+const TodosActions = {
+    
+    getTodos: createAction(TodosTypes.GET_TODOS),
+    getTodosResponse: createAction(TodosTypes.GET_TODOS_RESPONSE),
 
-export const deleteTodos = createAction(TodosTypes.DELETE_TODOS);
-export const deleteTodosResponse = createAction(TodosTypes.DELETE_TODOS_RESPONSE);
+    deleteTodos: createAction(TodosTypes.DELETE_TODOS),
+    deleteTodosReponse: createAction(TodosTypes.DELETE_TODOS_RESPONSE),
 
-export const addTodos = createAction(TodosTypes.ADD_TODOS);
-export const addTodosResponse = createAction(TodosTypes.ADD_TODOS_RESPONSE);
+    addTodos: createAction(TodosTypes.ADD_TODOS),
+    addTodosResponse: createAction(TodosTypes.ADD_TODOS_RESPONSE),
 
-export const updateTodos = createAction(TodosTypes.UPDATE_TODOS);
-export const updateTodosResponse = createAction(TodosTypes.UPDATE_TODOS_RESPONSE);
+    updateTodos: createAction(TodosTypes.UPDATE_TODOS),
+    updateTodosResponse: createAction(TodosTypes.UPDATE_TODOS_RESPONSE),
+    
+}
+
+export default TodosActions;
+

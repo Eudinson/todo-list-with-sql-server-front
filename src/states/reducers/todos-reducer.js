@@ -10,7 +10,7 @@ const initialState = {
 
 const todosReducer = createReducer(initialState, (builder) => {
     builder
-    .addCase(TodosTypes.GET_TODO_LIST_RESPONSE, (state, action) => {
+    .addCase(TodosTypes.GET_TODOS_RESPONSE, (state, action) => {
         state.todosList = action.payload
     })
     .addCase(TodosTypes.DELETE_TODOS_RESPONSE, (state, action) => {

@@ -1,52 +1,47 @@
 import { call, put } from 'redux-saga/effects';
-import {
-    requestGetTodos,
-    requestDeleteTodos,
-    requestAddTodos,
-    requestUpdateTodos
-} from '../requests/todos-request';
-import {
-    getTodosListResponse,
-    deleteTodosResponse,
-    addTodosResponse,
-    updateTodosResponse
-} from '../actions/todos-action';
+import TodosApi from '../requests/todos-request';
+import TodosActions from '../actions/todos-action';
 
-export function* handleGetTodos() {
-    try {
-        const response = yield call(requestGetTodos)
-        yield put(getTodosListResponse(response.data))
-    } catch (error) {
-        yield put(getTodosListResponse(error.message))
+const TodosHandlers = {
+
+    getTodos: function* () {
+        try {
+            const response = yield call(TodosApi.get)
+            yield put(TodosActions.getTodosResponse(response.data))
+        } catch (error) {
+            yield put(TodosActions.getTodosResponse(error.message))
+        }
+    },
+    
+    deleteTodos: function* (param) {
+        try {
+            const requestParam = { id: param.payload }
+            const response = yield call(TodosApi.delete, requestParam)
+            yield put(TodosActions.deleteTodosReponse(response))
+        } catch (error) {
+            yield put(TodosActions.deleteTodosReponse(error.message))
+        }
+    },
+    
+    addTodos: function* (param) {
+        try {
+            const requestParam = { todo: param.payload }
+            const response = yield call(TodosApi.add, requestParam)
+            yield put(TodosActions.addTodosResponse(response))
+        } catch (error) {
+            yield put(TodosActions.addTodosResponse(error.message))
+        }
+    },
+    
+    updateTodos: function* (param) {
+        try {
+            const requestParam = param.payload
+            const response = yield call(TodosApi.update, requestParam)
+            yield put(TodosActions.updateTodosResponse(response))
+        } catch (error) {
+            yield put(TodosActions.updateTodosResponse(error.message))
+        }
     }
 }
 
-export function* handleDeleteTodos(param) {
-    try {
-        const requestParam = { id: param.payload }
-        const response = yield call(requestDeleteTodos, requestParam)
-        yield put(deleteTodosResponse(response))
-    } catch (error) {
-        yield put(deleteTodosResponse(error.message))
-    }
-}
-
-export function* handleAddTodos(param) {
-    try {
-        const requestParam = { todo: param.payload }
-        const response = yield call(requestAddTodos, requestParam)
-        yield put(addTodosResponse(response))
-    } catch (error) {
-        yield put(addTodosResponse(error.message))
-    }
-}
-
-export function* handleupdateTodos(param) {
-    try {
-        const requestParam = param.payload 
-        const response = yield call(requestUpdateTodos, requestParam)
-        yield put(updateTodosResponse(response))
-    } catch (error) {
-        yield put(updateTodosResponse(error.message))
-    }
-}
+export default TodosHandlers;
